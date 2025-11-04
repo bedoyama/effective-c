@@ -110,5 +110,42 @@ int main() {
 	printf("val << 4 = 0x%08X %u (4 high bits truncated)\n", val << 4, val << 4);
 	printf("val >> 4 = 0x%08X %u (4 low bits truncated)\n", val >> 4, val >> 4);
 	
+	// Signed negative number shifts
+	printf("\n=== Signed Negative Number Shifts ===\n");
+	printf("WARNING: Left shift of negative numbers is UNDEFINED BEHAVIOR!\n\n");
+	
+	signed char neg = -16;  // Binary: 11110000 (in two's complement)
+	printf("Signed char neg = %d (0x%02X)\n", neg, (unsigned char)neg);
+	printf("Binary representation: ");
+	for (int i = 7; i >= 0; i--) {
+		printf("%d", ((unsigned char)neg >> i) & 1);
+	}
+	printf("\n\n");
+	
+	// Right shift on signed (arithmetic shift - sign extension)
+	printf("Right shift (arithmetic - preserves sign):\n");
+	printf("neg >> 1 = %d (0x%02X) - sign bit extended\n", neg >> 1, (unsigned char)(neg >> 1));
+	printf("neg >> 2 = %d (0x%02X) - sign bit extended\n", neg >> 2, (unsigned char)(neg >> 2));
+	printf("neg >> 3 = %d (0x%02X) - sign bit extended\n", neg >> 3, (unsigned char)(neg >> 3));
+	printf("neg >> 4 = %d (0x%02X) - sign bit extended\n\n", neg >> 4, (unsigned char)(neg >> 4));
+	
+	// Unsigned vs signed right shift
+	signed char signed_neg = -8;  // 11111000
+	unsigned char unsigned_val = (unsigned char)signed_neg;
+	
+	printf("Comparison: signed vs unsigned right shift by 2:\n");
+	printf("signed_neg = %d (0x%02X)\n", signed_neg, (unsigned char)signed_neg);
+	printf("signed_neg >> 2 = %d (sign extended, fills with 1s)\n", signed_neg >> 2);
+	printf("unsigned_val >> 2 = %u (logical shift, fills with 0s)\n\n", unsigned_val >> 2);
+	
+	// Multi-bit shift demonstration
+	printf("=== Multi-bit Shift (more than 1 bit) ===\n");
+	unsigned char data = 0b10110100;  // 180 in decimal
+	printf("data = 0x%02X %u (binary: 10110100)\n", data, data);
+	printf("data << 3 = 0x%02X %u (shift left by 3)\n", data << 3, data << 3);
+	printf("data >> 3 = 0x%02X %u (shift right by 3)\n", data >> 3, data >> 3);
+	printf("data << 5 = 0x%02X %u (shift left by 5)\n", data << 5, data << 5);
+	printf("data >> 5 = 0x%02X %u (shift right by 5)\n", data >> 5, data >> 5);
+	
 	return EXIT_SUCCESS;
 }
