@@ -34,6 +34,24 @@ compile() {
     fi
 }
 
+# Function to print source code
+print_source() {
+    local source_file="$1"
+    
+    echo -e "\n${YELLOW}Source Code:${NC} $source_file"
+    echo "========================================"
+    
+    if command -v bat > /dev/null 2>&1; then
+        # Use bat if available (syntax highlighting)
+        bat --style=numbers --color=always "$source_file"
+    else
+        # Fallback to cat with line numbers
+        cat -n "$source_file"
+    fi
+    
+    echo "========================================"
+}
+
 # Function to run an executable
 run_executable() {
     local executable="$1"
@@ -60,6 +78,9 @@ compile_and_run() {
         echo -e "${RED}✗ File not found:${NC} $source_file"
         return 1
     fi
+    
+    # Print source code first
+    print_source "$source_file"
     
     if compile "$source_file"; then
         local executable="${source_file%.c}"
@@ -160,6 +181,11 @@ main() {
                 local chapter="$1"
                 local filename="$2"
                 
+                # Ensure filename has .c extension
+                if [[ ! "$filename" =~ \.c$ ]]; then
+                    filename="${filename}.c"
+                fi
+                
                 # Try to find the file in chapter directories
                 local found_file=""
                 for dir in "$chapter/listings" "$chapter/misc"; do
@@ -169,16 +195,6 @@ main() {
                     fi
                 done
                 
-                if [ -z "$found_file" ]; then
-                    # Try without .c extension
-                    for dir in "$chapter/listings" "$chapter/misc"; do
-                        if [ -f "$dir/${filename}.c" ]; then
-                            found_file="$dir/${filename}.c"
-                            break
-                        fi
-                    done
-                fi
-                
                 if [ -n "$found_file" ]; then
                     compile_and_run "$found_file"
                 else
@@ -187,12 +203,22 @@ main() {
                 fi
             else
                 # Handle: ./run.sh ch4/listings/bitwise.c
-                compile_and_run "$1"
+                local file="$1"
+                # Ensure it's a .c file
+                if [[ ! "$file" =~ \.c$ ]]; then
+                    file="${file}.c"
+                fi
+                compile_and_run "$file"
             fi
             ;;
         *)
             # Handle: ./run.sh path/to/file.c
-            compile_and_run "$1"
+            local file="$1"
+            # Ensure it's a .c file
+            if [[ ! "$file" =~ \.c$ ]]; then
+                file="${file}.c"
+            fi
+            compile_and_run "$file"
             ;;
     esac
 }
