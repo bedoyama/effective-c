@@ -140,44 +140,6 @@ vgcore.*
 *.rar
 *.7z
 
-# Specific to this project - keep source files but ignore executables
-# Uncomment patterns as needed:
-hello
-hello-rev1
-hello-rev2
-static
-swap
-swap-rev1
-matrix
-float_ptr_array
-func_ptr
-int_limits
-num_limits
-increment
-sizeof_op
-arithmetic
-bitwise
-logical
-cast
-conditional
-relational
-compound_assign
-comma
-pointer_arith
-precedence
-order_eval
-alignof
-function_call
-malloc_example
-calloc_example
-realloc_example
-string_alloc
-memory_leak
-dangling_ptr
-double_free
-aligned_alloc
-flexible_array
-
 # But keep Makefiles
 !Makefile
 !makefile

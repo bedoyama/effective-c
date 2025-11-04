@@ -18,13 +18,22 @@ NC='\033[0m' # No Color
 # Compiler settings
 CC="${CC:-gcc}"
 CFLAGS="${CFLAGS:--Wall -Wextra -std=c11 -O2}"
+BUILD_DIR="build"
 
 # Function to compile a C file
 compile() {
     local source_file="$1"
-    local executable="${source_file%.c}"
+    local source_basename=$(basename "${source_file%.c}")
+    local source_dir=$(dirname "$source_file")
+    
+    # Create build directory structure
+    local build_subdir="$BUILD_DIR/$source_dir"
+    mkdir -p "$build_subdir"
+    
+    local executable="$build_subdir/$source_basename"
     
     echo -e "${BLUE}Compiling:${NC} $source_file"
+    echo -e "${BLUE}Output:${NC} $executable"
     if $CC $CFLAGS -o "$executable" "$source_file"; then
         echo -e "${GREEN}✓ Compiled successfully:${NC} $executable"
         return 0
@@ -54,12 +63,15 @@ print_source() {
 
 # Function to run an executable
 run_executable() {
-    local executable="$1"
+    local source_file="$1"
+    local source_basename=$(basename "${source_file%.c}")
+    local source_dir=$(dirname "$source_file")
+    local executable="$BUILD_DIR/$source_dir/$source_basename"
     
     if [ -x "$executable" ]; then
         echo -e "\n${YELLOW}Running:${NC} $executable"
         echo "----------------------------------------"
-        ./"$executable"
+        "$executable"
         local exit_code=$?
         echo "----------------------------------------"
         echo -e "${BLUE}Exit code:${NC} $exit_code\n"
@@ -83,8 +95,7 @@ compile_and_run() {
     print_source "$source_file"
     
     if compile "$source_file"; then
-        local executable="${source_file%.c}"
-        run_executable "$executable"
+        run_executable "$source_file"
     fi
 }
 
@@ -112,20 +123,14 @@ compile_all() {
 
 # Function to clean all executables
 clean_all() {
-    echo -e "${BLUE}Cleaning executables...${NC}\n"
-    local count=0
+    echo -e "${BLUE}Cleaning build directory...${NC}\n"
     
-    # Find all C files and remove their corresponding executables
-    for source_file in $(find . -name "*.c" -type f); do
-        local executable="${source_file%.c}"
-        if [ -f "$executable" ] && [ -x "$executable" ]; then
-            rm -f "$executable"
-            echo -e "${GREEN}Removed:${NC} $executable"
-            ((count++))
-        fi
-    done
-    
-    echo -e "\n${GREEN}Cleaned $count executable(s)${NC}"
+    if [ -d "$BUILD_DIR" ]; then
+        rm -rf "$BUILD_DIR"
+        echo -e "${GREEN}✓ Removed build directory${NC}"
+    else
+        echo -e "${YELLOW}No build directory to clean${NC}"
+    fi
 }
 
 # Function to show usage
