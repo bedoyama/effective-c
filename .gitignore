@@ -1,0 +1,184 @@
+# Compiled Object files
+*.o
+*.obj
+*.ko
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Core dumps
+core
+core.*
+*.core
+
+# Temporary files
+*~
+*.swp
+*.swo
+*.swn
+.DS_Store
+Thumbs.db
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vs/
+*.code-workspace
+
+# Build directories
+build/
+Build/
+BUILD/
+bin/
+obj/
+out/
+dist/
+target/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# Make
+*.d
+.depend
+Makefile.bak
+
+# Autotools
+.deps/
+.libs/
+*.lo
+autom4te.cache/
+config.h
+config.h.in
+config.log
+config.status
+configure
+Makefile.in
+stamp-h1
+.dirstamp
+
+# gcov/lcov
+*.gcno
+*.gcda
+*.gcov
+coverage/
+lcov.info
+
+# Valgrind
+*.valgrind
+vgcore.*
+
+# GDB
+.gdb_history
+
+# Assembly listing files
+*.lst
+*.s
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Log files
+*.log
+
+# Archives (usually don't want to commit these)
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Specific to this project - keep source files but ignore executables
+# Uncomment patterns as needed:
+hello
+hello-rev1
+hello-rev2
+static
+swap
+swap-rev1
+matrix
+float_ptr_array
+func_ptr
+int_limits
+num_limits
+increment
+sizeof_op
+arithmetic
+bitwise
+logical
+cast
+conditional
+relational
+compound_assign
+comma
+pointer_arith
+precedence
+order_eval
+alignof
+function_call
+malloc_example
+calloc_example
+realloc_example
+string_alloc
+memory_leak
+dangling_ptr
+double_free
+aligned_alloc
+flexible_array
+
+# But keep Makefiles
+!Makefile
+!makefile
+!*.mk
