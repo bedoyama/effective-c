@@ -31,7 +31,7 @@ int main() {
 	printf("sizeof(struct example2):  %zu\n\n", sizeof(struct example2));
 	
 	// Using _Alignas specifier (C11)
-	_Alignas(16) char buffer[64];
+	_Alignas(16) char buffer[72];
 	printf("Alignment of buffer: %zu\n", alignof(buffer));
 	printf("Size of buffer: %zu\n", sizeof(buffer));
 	
