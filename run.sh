@@ -4,7 +4,8 @@
 # Usage: ./run.sh <file.c>
 #    or: ./run.sh <chapter> <file.c>
 #    or: ./run.sh -a (compile all)
-#    or: ./run.sh -c (clean all executables)
+#    or: ./run.sh -c (clean all)
+#    or: ./run.sh -q <file.c> (quick: skip code listing)
 
 set -e
 
@@ -14,6 +15,9 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
+
+# Global flags
+SKIP_LISTING=false
 
 # Compiler settings
 CC="${CC:-gcc}"
@@ -91,8 +95,10 @@ compile_and_run() {
         return 1
     fi
     
-    # Print source code first
-    print_source "$source_file"
+    # Print source code first (unless skipped)
+    if [ "$SKIP_LISTING" = false ]; then
+        print_source "$source_file"
+    fi
     
     if compile "$source_file"; then
         run_executable "$source_file"
@@ -139,6 +145,7 @@ show_usage() {
 ${BLUE}Usage:${NC}
   ./run.sh <file.c>              Compile and run a C file
   ./run.sh <chapter> <file>      Compile and run from specific chapter
+  ./run.sh -q, --quick <file>    Quick mode: compile and run without listing code
   ./run.sh -a, --all             Compile all C files
   ./run.sh -c, --clean           Clean all executables
   ./run.sh -h, --help            Show this help message
@@ -147,6 +154,8 @@ ${BLUE}Examples:${NC}
   ./run.sh ch1/listing1/hello.c
   ./run.sh ch4 bitwise.c
   ./run.sh ch4/listings/bitwise.c
+  ./run.sh -q ch8/listings/binary_io.c
+  ./run.sh --quick ch4 bitwise.c
   ./run.sh --all
   ./run.sh --clean
 
@@ -178,6 +187,18 @@ main() {
             ;;
         -c|--clean)
             clean_all
+            exit 0
+            ;;
+        -q|--quick)
+            SKIP_LISTING=true
+            shift
+            if [ $# -eq 0 ]; then
+                echo -e "${RED}✗ No file specified${NC}"
+                show_usage
+                exit 1
+            fi
+            # Process remaining arguments recursively
+            main "$@"
             exit 0
             ;;
         ch*)

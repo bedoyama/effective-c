@@ -140,6 +140,9 @@ vgcore.*
 *.rar
 *.7z
 
+# test data
+*.dat
+
 # But keep Makefiles
 !Makefile
 !makefile
