@@ -35,7 +35,7 @@ int main(void)
         fp = fopen("wide_test.txt", "w");
         if (fp != NULL)
         {
-            fwprintf(fp, L"Ñ");
+            fwprintf(fp, L"Ñom");
             fclose(fp);
         }
 
@@ -73,13 +73,34 @@ int main(void)
         printf("\n");
     }
 
-    // Test 3: getchar vs getwchar - read from stdin (demo)
+    // Test 3: getchar vs getwchar - read from stdin
     printf("Test 3: getchar() vs getwchar() - read from stdin\n");
     {
-        printf("  getchar() reads narrow char from stdin\n");
-        printf("  getwchar() reads wide char from stdin\n");
-        printf("  Example: int ch = getchar();\n");
-        printf("  Example: wint_t wch = getwchar();\n");
+        // Redirect stdin from a file to demonstrate
+        FILE *saved_stdin = stdin;
+
+        // Test getchar()
+        FILE *narrow_stdin = fopen("narrow_test.txt", "r");
+        if (narrow_stdin != NULL)
+        {
+            stdin = narrow_stdin;
+            int ch = getchar();
+            printf("  getchar() read from stdin: '%c'\n", ch);
+            fclose(narrow_stdin);
+        }
+
+        // Test getwchar()
+        FILE *wide_stdin = fopen("wide_test.txt", "r");
+        if (wide_stdin != NULL)
+        {
+            stdin = wide_stdin;
+            wint_t wch = getwchar();
+            printf("  getwchar() read from stdin: '%lc'\n", wch);
+            fclose(wide_stdin);
+        }
+
+        stdin = saved_stdin;
+        printf("  Note: Normally these read from actual stdin\n");
         printf("\n");
     }
 
@@ -263,15 +284,53 @@ int main(void)
         printf("\n");
     }
 
-    // Test 11: scanf vs wscanf - read formatted input from stdin (demo)
+    // Test 11: scanf vs wscanf - read formatted input from stdin
     printf("Test 11: scanf() vs wscanf() - read formatted from stdin\n");
     {
-        printf("  scanf() example:\n");
-        printf("    int value; scanf(\"%%d\", &value);\n");
-        printf("\n");
+        FILE *saved_stdin = stdin;
 
-        printf("  wscanf() example:\n");
-        printf("    int value; wscanf(L\"%%d\", &value);\n");
+        // Create test input for scanf
+        FILE *narrow_input = fopen("scanf_test.txt", "w");
+        if (narrow_input != NULL)
+        {
+            fprintf(narrow_input, "42 Hello");
+            fclose(narrow_input);
+        }
+
+        // Test scanf()
+        narrow_input = fopen("scanf_test.txt", "r");
+        if (narrow_input != NULL)
+        {
+            stdin = narrow_input;
+            int value;
+            char str[50];
+            int result = scanf("%d %s", &value, str);
+            printf("  scanf() read %d items: value=%d, str=%s\n", result, value, str);
+            fclose(narrow_input);
+        }
+
+        // Create test input for wscanf
+        FILE *wide_input = fopen("wscanf_test.txt", "w");
+        if (wide_input != NULL)
+        {
+            fwprintf(wide_input, L"99 Wörld");
+            fclose(wide_input);
+        }
+
+        // Test wscanf()
+        wide_input = fopen("wscanf_test.txt", "r");
+        if (wide_input != NULL)
+        {
+            stdin = wide_input;
+            int wvalue;
+            wchar_t wstr[50];
+            int wresult = wscanf(L"%d %ls", &wvalue, wstr);
+            printf("  wscanf() read %d items: value=%d, str=%ls\n", wresult, wvalue, wstr);
+            fclose(wide_input);
+        }
+
+        stdin = saved_stdin;
+        printf("  Note: Normally these read from actual stdin\n");
         printf("\n");
     }
 
@@ -438,6 +497,8 @@ int main(void)
     remove("formatted_wide.txt");
     remove("printf_narrow.txt");
     remove("printf_wide.txt");
+    remove("scanf_test.txt");
+    remove("wscanf_test.txt");
 
     printf("=== Function Pairs Summary ===\n\n");
     printf("Character I/O:\n");
