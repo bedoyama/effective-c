@@ -109,6 +109,27 @@ int main(void)
 #endif
     printf("\n");
 
+    printf("Test 11: #error directive\n");
+    printf("  Checking for required configuration...\n");
+#if !defined(VERSION_MAJOR)
+    // This would cause a compilation error if VERSION_MAJOR wasn't defined
+    // #error "VERSION_MAJOR must be defined"
+    printf("  ✗ VERSION_MAJOR not defined (would fail with #error)\n");
+#else
+    printf("  ✓ VERSION_MAJOR is defined = %d\n", VERSION_MAJOR);
+#endif
+    printf("\n");
+
+    printf("Test 12: Header guards simulation\n");
+    printf("  Header guards prevent multiple inclusion of the same file\n");
+    printf("  Pattern:\n");
+    printf("    #ifndef MYHEADER_H\n");
+    printf("    #define MYHEADER_H\n");
+    printf("    // ... header contents ...\n");
+    printf("    #endif /* MYHEADER_H */\n");
+    printf("  ✓ This prevents redefinition errors\n");
+    printf("\n");
+
     printf("=== Common Predefined Macros ===\n");
     printf("__FILE__     = %s\n", __FILE__);
     printf("__LINE__     = %d\n", __LINE__);
