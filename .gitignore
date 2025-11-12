@@ -143,6 +143,9 @@ vgcore.*
 # test data
 *.dat
 
+# translation files
+*.i 
+
 # But keep Makefiles
 !Makefile
 !makefile
