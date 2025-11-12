@@ -160,6 +160,41 @@ int main(void)
     }
     printf("\n");
 
+    printf("Test 12: Type-generic macros (C11)\n");
+    {
+        // C11 introduced _Generic for type-generic selection
+        // This allows creating macros that work with different types
+#if __STDC_VERSION__ >= 201112L
+#define PRINT_TYPE(x) _Generic((x),        \
+    int: printf("  int: %d\n", (x)),       \
+    long: printf("  long: %ld\n", (x)),    \
+    float: printf("  float: %f\n", (x)),   \
+    double: printf("  double: %f\n", (x)), \
+    char *: printf("  string: %s\n", (x)), \
+    default: printf("  unknown type\n"))
+
+        int int_val = 42;
+        long long_val = 1234567890L;
+        float float_val = 3.14f;
+        double double_val = 2.71828;
+        char *str_val = "Hello";
+
+        PRINT_TYPE(int_val);
+        PRINT_TYPE(long_val);
+        PRINT_TYPE(float_val);
+        PRINT_TYPE(double_val);
+        PRINT_TYPE(str_val);
+
+#undef PRINT_TYPE
+
+        printf("  ✓ _Generic allows type-safe generic macros\n");
+#else
+        printf("  _Generic requires C11 or later\n");
+        printf("  Compile with: -std=c11\n");
+#endif
+    }
+    printf("\n");
+
     printf("=== Important Notes ===\n");
     printf("1. Macros are text replacement, not code\n");
     printf("2. Always use parentheses around macro parameters\n");
