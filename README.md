@@ -16,6 +16,7 @@ effective-c/
 ├── ch08/         # Standard I/O Streams
 ├── ch09/         # Preprocessor
 ├── ch10/         # Program Structure
+├── ch11/         # Debugging, Testing, and Analysis
 ├── run.sh        # Compilation and execution utility
 └── README.md     # This file
 ```
@@ -171,6 +172,24 @@ Notes and examples in Chapter 10:
 - `ch10/listings/executables.c` — program initialization, object files, and linking
 - `ch10/misc/simple_program/` — a small multi-file calculator demonstrating build, headers, and a `Makefile`
 - `ch10/misc/opaque_types.c` — an explicit demonstration of opaque types (pointer-based and handle-based)
+
+### Chapter 11: Debugging, Testing, and Analysis
+
+- **Assertions**: Using `assert()`, `_Static_assert()`, NDEBUG macro, custom assertion macros
+- **Compiler Settings**: Warning flags, optimization levels, C standards, debugging symbols, security hardening
+- **Debugging**: GDB/LLDB basics, breakpoints, inspecting variables, stack traces, debugging workflows
+- **Unit Testing**: Test structure (Arrange-Act-Assert), test frameworks, TDD approach, test coverage
+- **Static Analysis**: Compiler warnings, GCC analyzer, Clang static analyzer, cppcheck, splint, clang-tidy
+- **Dynamic Analysis**: AddressSanitizer, UndefinedBehaviorSanitizer, MemorySanitizer, Valgrind, sanitizer workflows
+
+Files in Chapter 11:
+
+- `ch11/listings/assertions.c` — comprehensive guide to assertions, including runtime and compile-time assertions
+- `ch11/listings/compiler_settings.c` — detailed examples of compiler flags, standards, and optimization levels
+- `ch11/listings/debugging.c` — debugging techniques, common bug patterns, GDB/LLDB quick reference
+- `ch11/listings/unit_testing.c` — simple testing framework, test patterns, TDD examples
+- `ch11/listings/static_analysis.c` — code issues detectable by static analyzers, tool usage and workflows
+- `ch11/listings/dynamic_analysis.c` — sanitizers and Valgrind usage, runtime error detection
 
 ## 🎯 Key Features
 
