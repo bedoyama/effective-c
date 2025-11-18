@@ -15,7 +15,7 @@ int main(void)
     FILE *fp;
     sigrecord sigrec;
 
-    if ((fp = fopen("ch8/misc/signals.dat", "wb")) == NULL)
+    if ((fp = fopen("ch08/misc/signals.dat", "wb")) == NULL)
     {
         fputs("Cannot open signals.dat file\n", stderr);
         return EXIT_FAILURE;

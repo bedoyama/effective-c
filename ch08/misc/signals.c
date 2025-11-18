@@ -14,7 +14,7 @@ int main(void)
         char sigdesc[100];
     } sigrec;
 
-    if ((in = fopen("ch8/misc/signals.txt", "r")) == NULL)
+    if ((in = fopen("ch08/misc/signals.txt", "r")) == NULL)
     {
         fputs("Cannot open signals.txt file\n", stderr);
         return EXIT_FAILURE;

@@ -27,7 +27,7 @@ sudo dnf install dmalloc-devel
 ### 1. Compile with Dmalloc Support
 
 ```bash
-gcc -DDMALLOC -o build/ch6/misc/dmalloc_example ch6/misc/dmalloc_example.c -ldmalloc
+gcc -DDMALLOC -o build/ch06/misc/dmalloc_example ch06/misc/dmalloc_example.c -ldmalloc
 ```
 
 **Compiler flags:**
@@ -62,7 +62,7 @@ export DMALLOC_OPTIONS=debug=0x4f47d03,log=dmalloc.log
 ### 3. Run Your Program
 
 ```bash
-./build/ch6/misc/dmalloc_example
+./build/ch06/misc/dmalloc_example
 ```
 
 ### 4. Check for Errors
@@ -99,13 +99,13 @@ Dmalloc can detect the following memory errors:
 brew install dmalloc
 
 # 2. Compile the example
-gcc -DDMALLOC -o build/ch6/misc/dmalloc_example ch6/misc/dmalloc_example.c -ldmalloc
+gcc -DDMALLOC -o build/ch06/misc/dmalloc_example ch06/misc/dmalloc_example.c -ldmalloc
 
 # 3. Set up environment
 eval `dmalloc -b low`
 
 # 4. Run the program
-./build/ch6/misc/dmalloc_example
+./build/ch06/misc/dmalloc_example
 
 # 5. Check the log
 cat dmalloc.log

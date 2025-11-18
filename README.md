@@ -6,15 +6,16 @@ A comprehensive collection of C programming examples based on the book "Effectiv
 
 ```
 effective-c/
-├── ch1/          # Introduction to C (Hello World, basics)
-├── ch2/          # Objects, Functions, and Types
-├── ch3/          # Arithmetic Types
-├── ch4/          # Expressions and Operators
-├── ch5/          # Control Flow
-├── ch6/          # Dynamic Memory Management
-├── ch7/          # Characters and Strings
-├── ch8/          # Standard I/O Streams
-├── ch9/          # Preprocessor
+├── ch01/         # Introduction to C (Hello World, basics)
+├── ch02/         # Objects, Functions, and Types
+├── ch03/         # Arithmetic Types
+├── ch04/         # Expressions and Operators
+├── ch05/         # Control Flow
+├── ch06/         # Dynamic Memory Management
+├── ch07/         # Characters and Strings
+├── ch08/         # Standard I/O Streams
+├── ch09/         # Preprocessor
+├── ch10/         # Program Structure
 ├── run.sh        # Compilation and execution utility
 └── README.md     # This file
 ```
@@ -40,10 +41,10 @@ The `run.sh` script simplifies compiling and running C examples.
 
 ```bash
 # Compile and run a single file
-./run.sh ch1/listing1/hello.c
+./run.sh ch01/listing1/hello.c
 
 # Quick mode: skip code listing before compilation
-./run.sh -q ch8/listings/opening_files.c
+./run.sh -q ch08/listings/opening_files.c
 
 # Compile all files in the repository
 ./run.sh -a
@@ -65,10 +66,10 @@ The `run.sh` script simplifies compiling and running C examples.
 
 ```bash
 # Run a specific example with code listing
-./run.sh ch7/listings/string_basics.c
+./run.sh ch07/listings/string_basics.c
 
 # Quick run without seeing the source code first
-./run.sh -q ch6/listings/malloc_example.c
+./run.sh -q ch06/listings/malloc_example.c
 
 # Compile everything
 ./run.sh -a
@@ -154,6 +155,23 @@ gcc -E -o translation.i file.c
 - Conditional compilation (`#ifdef`, `#if`)
 - Macro definitions and techniques
 
+### Chapter 10: Program Structure
+
+- Principles of componentization: separation of interface and implementation, cohesion, coupling, API design
+- Executables and the compilation/linking stages (preprocessing, compilation, assembly, linking)
+- Linkage and storage classes: external, internal (static), and no linkage
+- Structuring a simple program: header/implementation split, opaque types, modular design
+- Building the code: separate compilation, static libraries (`.a`), linking, and Makefile automation
+
+Notes and examples in Chapter 10:
+
+- `ch10/listings/queue.h`, `ch10/listings/queue.c`, `ch10/listings/queue_main.c` — a complete queue module demonstrating opaque types and module boundaries
+- `ch10/listings/componentization.c` — principles and patterns for component design
+- `ch10/listings/linkage.c` — examples of linkage and storage classes
+- `ch10/listings/executables.c` — program initialization, object files, and linking
+- `ch10/misc/simple_program/` — a small multi-file calculator demonstrating build, headers, and a `Makefile`
+- `ch10/misc/opaque_types.c` — an explicit demonstration of opaque types (pointer-based and handle-based)
+
 ## 🎯 Key Features
 
 - **Comprehensive Examples**: Each topic includes multiple test cases
@@ -197,10 +215,10 @@ Compiled binaries are stored in the `build/` directory, mirroring the source str
 
 ```
 build/
-├── ch1/
+├── ch01/
 │   └── listing1/
 │       └── hello
-├── ch8/
+├── ch08/
 │   └── listings/
 │       └── opening_files
 ...

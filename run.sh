@@ -151,11 +151,11 @@ ${BLUE}Usage:${NC}
   ./run.sh -h, --help            Show this help message
 
 ${BLUE}Examples:${NC}
-  ./run.sh ch1/listing1/hello.c
-  ./run.sh ch4 bitwise.c
-  ./run.sh ch4/listings/bitwise.c
-  ./run.sh -q ch8/listings/binary_io.c
-  ./run.sh --quick ch4 bitwise.c
+  ./run.sh ch01/listing1/hello.c
+  ./run.sh ch04 bitwise.c
+  ./run.sh ch04/listings/bitwise.c
+  ./run.sh -q ch08/listings/binary_io.c
+  ./run.sh --quick ch04 bitwise.c
   ./run.sh --all
   ./run.sh --clean
 
@@ -164,8 +164,8 @@ ${BLUE}Environment Variables:${NC}
   CFLAGS                         Compiler flags (default: -Wall -Wextra -std=c11 -O2)
 
 ${BLUE}Examples with custom settings:${NC}
-  CC=clang ./run.sh ch4/listings/bitwise.c
-  CFLAGS="-Wall -g" ./run.sh ch1/listing1/hello.c
+  CC=clang ./run.sh ch04/listings/bitwise.c
+  CFLAGS="-Wall -g" ./run.sh ch01/listing1/hello.c
 EOF
 }
 
@@ -228,7 +228,7 @@ main() {
                     exit 1
                 fi
             else
-                # Handle: ./run.sh ch4/listings/bitwise.c
+                # Handle: ./run.sh ch04/listings/bitwise.c
                 local file="$1"
                 # Ensure it's a .c file
                 if [[ ! "$file" =~ \.c$ ]]; then

@@ -16,7 +16,7 @@ int main(void)
     sigrecord sigrec;
     size_t size = sizeof(sigrecord);
 
-    if ((fp = fopen("ch8/misc/signals.dat", "rb")) == NULL)
+    if ((fp = fopen("ch08/misc/signals.dat", "rb")) == NULL)
     {
         fputs("Cannot open signals.dat file\n", stderr);
         return EXIT_FAILURE;
